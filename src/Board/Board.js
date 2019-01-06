@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 
 import styles from "./Board.styles";
 
-const area = [
+const grid = [
   [' ','7',' ',   ' ',' ',' ',   '2',' ','1',],
   [' ','6',' ',   ' ',' ','5',   ' ',' ','8',],
   [' ',' ',' ',   ' ',' ',' ',   '4',' ',' ',],
@@ -15,22 +15,50 @@ const area = [
   ['6',' ',' ',   '1','2',' ',   ' ',' ',' ',],
 ]
 
-let area2 = []
+let grid2 = []
 for (let i = 1; i <= 9; i++) {
   let row = []
   for (let j = 1; j <= 9; j++) {
     row.push(i * j)
   }
-  area2.push(row)
+  grid2.push(row)
 }
 
 export default class Board extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      grid: grid,
+      active: null,
+    }
+  }
+
+  onPressCell = (i, j) => {
+    this.setState({
+      active: [i, j]
+    })
+  }
+
+  onPressControl = (num) => {
+    let { grid, active } = this.state
+
+    if (active) {
+      grid[active[0]][active[1]] = num
+      this.setState({ grid: grid })
+    }
+  }
+
   render() {
+    const { grid, active } = this.state
+
     return (
       <View style={styles.board}>
         <View style={styles.grid}>
-          {area.map((row, i) => (
-            <View style={styles.row}>
+          {grid.map((row, i) => (
+            <View
+              key={i}
+              style={styles.row}
+            >
               {row.map((cell, j) => {
                 let style = [styles.cell]
 
@@ -54,20 +82,34 @@ export default class Board extends Component {
                   style.push(styles.cellGridLeft)
                 }
 
+                if (active && i === active[0] && j === active[1]) {
+                  style.push(styles.cellActive)
+                }
+
                 return (
-                  <View style={style}>
-                    <Text style={styles.number}>{cell}</Text>
-                  </View>
+                  <TouchableWithoutFeedback
+                    key={j}
+                    onPress={() => this.onPressCell(i, j)}
+                  >
+                    <View style={style} >
+                      <Text style={styles.number}>{cell}</Text>
+                    </View>
+                  </TouchableWithoutFeedback>
                 )
               })}
             </View>
           ))}
         </View>
         <View style={styles.controls}>
-          {area.map((row, i) => (
-            <View style={styles.control}>
-              <Text style={[styles.number, styles.controlNumber]}>{i + 1}</Text>
-            </View>
+          {grid.map((row, i) => (
+            <TouchableWithoutFeedback
+              key={i}
+              onPress={() => this.onPressControl(i + 1)}
+            >
+              <View style={styles.control}>
+                <Text style={[styles.number, styles.controlNumber]}>{i + 1}</Text>
+              </View>
+            </TouchableWithoutFeedback>
           ))}
         </View>
       </View>

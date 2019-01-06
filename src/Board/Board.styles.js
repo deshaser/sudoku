@@ -30,12 +30,10 @@ export default StyleSheet.create({
     borderTopWidth: cellBorderWidth,
     borderLeftWidth: cellBorderWidth,
   },
-  number: {
-    color: '#000',
-    fontSize: 32,
-    fontWeight: '100',
+  cellActive: {
+    backgroundColor: '#f0f0f0',
   },
- 
+
   cellBlockTop: {
     borderTopWidth: blockBorderWidth,
   },
@@ -54,6 +52,12 @@ export default StyleSheet.create({
   },
   cellGridLeft: {
     borderLeftWidth: gridBorderWidth,
+  },
+
+  number: {
+    color: '#000',
+    fontSize: 32,
+    fontWeight: '200',
   },
 
   controls: {
