@@ -12,6 +12,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   grid: {
     width: gridSize,
     height: gridSize,
@@ -31,6 +32,8 @@ export default StyleSheet.create({
   },
   number: {
     color: '#000',
+    fontSize: 32,
+    fontWeight: '100',
   },
  
   cellBlockTop: {
@@ -52,4 +55,20 @@ export default StyleSheet.create({
   cellGridLeft: {
     borderLeftWidth: gridBorderWidth,
   },
+
+  controls: {
+    width: gridSize,
+    flexDirection: 'row',
+    marginTop: 40,
+  },
+  control: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+
+  },
+  controlNumber: {
+    fontSize: 24,
+  }
 });

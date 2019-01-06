@@ -29,39 +29,46 @@ export default class Board extends Component {
     return (
       <View style={styles.board}>
         <View style={styles.grid}>
-            {area.map((row, i) => (
-              <View style={styles.row}>
-                {row.map((cell, j) => {
-                  let style = [styles.cell]
+          {area.map((row, i) => (
+            <View style={styles.row}>
+              {row.map((cell, j) => {
+                let style = [styles.cell]
 
-                  if (i === 3 || i === 6) {
-                    style.push(styles.cellBlockTop)
-                  }
-                  if (j === 3 || j === 6) {
-                    style.push(styles.cellBlockLeft)
-                  }
+                if (i === 3 || i === 6) {
+                  style.push(styles.cellBlockTop)
+                }
+                if (j === 3 || j === 6) {
+                  style.push(styles.cellBlockLeft)
+                }
 
-                  if (i === 0) {
-                    style.push(styles.cellGridTop)
-                  }
-                  if (j == 8) {
-                    style.push(styles.cellGridRight)
-                  }
-                  if (i === 8) {
-                    style.push(styles.cellGridBottom)
-                  }
-                  if (j === 0) {
-                    style.push(styles.cellGridLeft)
-                  }
+                if (i === 0) {
+                  style.push(styles.cellGridTop)
+                }
+                if (j == 8) {
+                  style.push(styles.cellGridRight)
+                }
+                if (i === 8) {
+                  style.push(styles.cellGridBottom)
+                }
+                if (j === 0) {
+                  style.push(styles.cellGridLeft)
+                }
 
-                  return (
-                    <View style={style}>
-                      <Text style={styles.number}>{cell}</Text>
-                    </View>
-                  )
-                })}
-              </View>
-            ))}
+                return (
+                  <View style={style}>
+                    <Text style={styles.number}>{cell}</Text>
+                  </View>
+                )
+              })}
+            </View>
+          ))}
+        </View>
+        <View style={styles.controls}>
+          {area.map((row, i) => (
+            <View style={styles.control}>
+              <Text style={[styles.number, styles.controlNumber]}>{i + 1}</Text>
+            </View>
+          ))}
         </View>
       </View>
     );
