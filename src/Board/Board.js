@@ -1,28 +1,9 @@
-import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import React, { Component } from 'react'
+import { View, Text, TouchableWithoutFeedback } from 'react-native'
 
-import styles from "./Board.styles";
+import { grid } from '../Sudoku'
 
-const grid = [
-  [' ','7',' ',   ' ',' ',' ',   '2',' ','1',],
-  [' ','6',' ',   ' ',' ','5',   ' ',' ','8',],
-  [' ',' ',' ',   ' ',' ',' ',   '4',' ',' ',],
-  ['1','5','2',   '4',' ',' ',   ' ',' ',' ',],
-  [' ',' ','6',   '8',' ',' ',   ' ',' ','5',],
-  [' ',' ',' ',   ' ',' ','9',   ' ','6',' ',],
-  [' ',' ','9',   ' ',' ',' ',   ' ','8','2',],
-  [' ',' ',' ',   '7',' ',' ',   ' ',' ','3',],
-  ['6',' ',' ',   '1','2',' ',   ' ',' ',' ',],
-]
-
-let grid2 = []
-for (let i = 1; i <= 9; i++) {
-  let row = []
-  for (let j = 1; j <= 9; j++) {
-    row.push(i * j)
-  }
-  grid2.push(row)
-}
+import styles from "./Board.styles"
 
 export default class Board extends Component {
   constructor(props) {
@@ -48,8 +29,8 @@ export default class Board extends Component {
   onPressControl = (num) => {
     let { grid, active } = this.state
 
-    if (active) {
-      grid[active[0]][active[1]] = num
+    if (active && !grid[active[0]][active[1]].isConst) {
+      grid[active[0]][active[1]].value = num
       this.setState({ grid: grid })
     }
   }
@@ -69,39 +50,42 @@ export default class Board extends Component {
                 style={styles.row}
               >
                 {row.map((cell, j) => {
-                  let style = [styles.cell]
+                  let cellStyles = [styles.cell]
+                  let numberStyles = [styles.number]
 
                   if (i === 3 || i === 6) {
-                    style.push(styles.cellBlockTop)
+                    cellStyles.push(styles.cellBlockTop)
                   }
                   if (j === 3 || j === 6) {
-                    style.push(styles.cellBlockLeft)
+                    cellStyles.push(styles.cellBlockLeft)
                   }
 
                   if (i === 0) {
-                    style.push(styles.cellGridTop)
+                    cellStyles.push(styles.cellGridTop)
                   }
                   if (j == 8) {
-                    style.push(styles.cellGridRight)
+                    cellStyles.push(styles.cellGridRight)
                   }
                   if (i === 8) {
-                    style.push(styles.cellGridBottom)
+                    cellStyles.push(styles.cellGridBottom)
                   }
                   if (j === 0) {
-                    style.push(styles.cellGridLeft)
+                    cellStyles.push(styles.cellGridLeft)
                   }
 
                   if (active && i === active[0] && j === active[1]) {
-                    style.push(styles.cellActive)
+                    cellStyles.push(styles.cellActive)
                   }
+
+                  numberStyles.push(styles[grid[i][j].isConst ? 'numberConst': 'numberVar'])
 
                   return (
                     <TouchableWithoutFeedback
                       key={j}
                       onPressIn={() => this.onPressCell(i, j)}
                     >
-                      <View style={style} >
-                        <Text style={styles.number}>{cell}</Text>
+                      <View style={cellStyles} >
+                        <Text style={numberStyles}>{cell.value}</Text>
                       </View>
                     </TouchableWithoutFeedback>
                   )

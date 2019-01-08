@@ -4,7 +4,7 @@ import {Dimensions} from 'react-native';
 const gridSize = Dimensions.get('window').width * 0.9;
 const cellBorderWidth = 0.3
 const blockBorderWidth = 1
-const gridBorderWidth = 2
+const gridBorderWidth = 0.3
 
 export default StyleSheet.create({
   board: {
@@ -55,9 +55,16 @@ export default StyleSheet.create({
   },
 
   number: {
-    color: '#000',
+    color: '#222',
     fontSize: 32,
     fontWeight: '200',
+  },
+  numberConst: {
+    fontSize: 28,
+    color: '#666',
+  },
+  numberVar: {
+    color: '#000',
   },
 
   controls: {
