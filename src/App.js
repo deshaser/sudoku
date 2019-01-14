@@ -7,21 +7,20 @@
  */
 
 import React, { Component } from 'react'
-import SideMenu from 'react-native-side-menu'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 
-import Menu from './Menu/Menu'
-import Board from './Board/Board'
+import reducer from './reducers/reducer'
+import Main from './components/Main/Main'
+
+const store = createStore(reducer)
 
 export default class App extends Component {
   render() {
     return (
-      <SideMenu
-        menu={<Menu />}
-        edgeHitWidth={100}
-        disableGestures={false}
-      >
-        <Board />
-      </SideMenu>
+      <Provider store={store}>
+        <Main />
+      </Provider>
     );
   }
 }

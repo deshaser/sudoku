@@ -82,5 +82,17 @@ export default StyleSheet.create({
   },
   controlNumber: {
     fontSize: 24,
+  },
+
+  pallet: {
+    backgroundColor: '#fff',
+    opacity: 0.9,
+    width: gridSize,
+    height: gridSize,
+    zIndex: 3,
+    position: 'absolute',
+    borderRadius: gridSize,
+    borderColor: '#ccc',
+    borderWidth: 1,
   }
 });

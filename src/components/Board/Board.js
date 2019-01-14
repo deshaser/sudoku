@@ -1,11 +1,22 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableWithoutFeedback } from 'react-native'
+import { connect } from 'react-redux'
 
-import { grid } from '../Sudoku'
+import { showPalette } from '../../actions/boardActions'
+import { grid } from '../../utils/sudoku'
 
 import styles from "./Board.styles"
 
-export default class Board extends Component {
+const mapStateToProps = state => ({
+  showPalette: state.board.showPalette,
+})
+const mapDispatchToProps = dispatch => ({
+  actions: {
+    showPalette: (value) => dispatch(showPalette(value)),
+  },
+})
+
+class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -83,6 +94,12 @@ export default class Board extends Component {
                     <TouchableWithoutFeedback
                       key={j}
                       onPressIn={() => this.onPressCell(i, j)}
+                      onLongPress={() => this.props.actions.showPalette(true)}
+                      onPressOut={() => this.props.actions.showPalette(false)}
+                      pressRetentionOffset={{
+                        top: 1000, left: 1000, bottom: 1000, right: 1000
+                      }}
+
                     >
                       <View style={cellStyles} >
                         <Text style={numberStyles}>{cell.value}</Text>
@@ -92,6 +109,9 @@ export default class Board extends Component {
                 })}
               </View>
             ))}
+            { this.props.showPalette && 
+              <View style={styles.pallet}></View>
+            }
           </View>
           <View style={styles.controls}>
             {grid.map((row, i) => (
@@ -110,3 +130,8 @@ export default class Board extends Component {
     );
   }
 };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Board)
