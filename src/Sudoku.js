@@ -6,7 +6,7 @@ let reformat = (grid) =>
     }))
   )
 
-let griBeginnerLevel = [
+let gridBeginnerLevel = [
   ['6','5','1',   '2',' ','3',   '8','4','9',],
   ['7',' ','2',   ' ',' ','4',   '5',' ',' ',],
   ['9','4',' ',   '1','6','5',   '2','3','7',],
@@ -34,7 +34,7 @@ let gridMasterLevel = [
   ['6',' ',' ',   '1','2',' ',   ' ',' ',' ',],
 ]
 
-const grid = reformat(griBeginnerLevel)
+const grid = reformat(gridBeginnerLevel)
 
 
 export { grid }
